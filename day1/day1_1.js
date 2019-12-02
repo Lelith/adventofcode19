@@ -6,8 +6,9 @@ function calculateMass(mass) {
 }
 
 try {
-  // const data = utils.readInput('./example.txt');
-  const data = utils.readInput('./input.txt');
+  let data = utils.readInput('./example.txt');
+  // const data = utils.readInput('./input.txt');
+  data = utils.modDataNewline(data);
   const fuel = [];
   data.map((module) => {
     fuel.push(calculateMass(module));
