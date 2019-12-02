@@ -18,8 +18,7 @@
         "peerDependencies": false
       }
     ],
-    "import/no-dynamic-require": false,
-    "import/no-unresolved": ["error", "never"],
+    "import/no-dynamic-require": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "jsx-a11y/anchor-is-valid": [
       "error",
