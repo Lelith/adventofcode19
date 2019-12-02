@@ -23,17 +23,17 @@ function gravityAssistant(data) {
 
 function replaceParameters(memory) {
   let noun = 0;
-  for (noun; noun < 100; noun += 1) {
-    let verb = 0;
-    for (verb; verb < 100; verb += 1) {
-      const tempMemory = memory.slice();
-      tempMemory[1] = noun;
-      tempMemory[2] = verb;
-      const gravity = gravityAssistant(tempMemory);
-      console.log(`noun: ${noun}, verb ${verb}, gravity: ${gravity[0]}`);
-      if (gravity[0] === 19690720) {
-        return [noun, verb];
-      }
+  while (noun < 100) {
+    const tempMemory = memory.slice();
+    tempMemory[1] = noun;
+    tempMemory[2] = 0;
+    const gravity = gravityAssistant(tempMemory);
+    const difference = 19690720 - gravity[0];
+    console.log(`noun:${noun}, difference: ${difference} `);
+    if (difference > 99) {
+      noun += 1;
+    } else {
+      return [noun, difference];
     }
   }
   return false;
