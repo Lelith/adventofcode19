@@ -2,6 +2,7 @@ const fs = require('fs');
 
 
 module.exports = {
+  calcManhattandistance: (a, b) => (a[0] - b[0]) + (a[1] - b[1]),
   modDataNewline: (data) => {
     const formatData = data.split('\n').map((item) => parseInt(item.trim(), 10));
     return formatData;
