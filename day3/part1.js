@@ -8,11 +8,11 @@ function calculatePoints(wire) {
   let lastPoint = [0, 0];
   const wirePoints = [];
   wire.map((wirePath) => {
-    const instruction = wirePath.split('');
-    instruction[1] = parseInt(instruction[1].trim(), 10);
-    let i = instruction[1];
+    const direction = wirePath.slice(0, 1);
+    const steps = parseInt(wirePath.slice(1).trim(), 10);
     let newPoint = [0, 0];
-    switch (instruction[0]) {
+    let i = steps;
+    switch (direction) {
       case 'U':
         for (i; i > 0; i -= 1) {
           newPoint = [lastPoint[0], (lastPoint[1] + 1)];
@@ -43,6 +43,7 @@ function calculatePoints(wire) {
         break;
       default: return false;
     }
+    console.log(wirePoints.slice(-1));
   });
   return wirePoints;
 }
@@ -71,7 +72,7 @@ try {
   console.log(crossPoints);
   const distances = [];
   crossPoints.map((cross) => {
-    distances.push(utils.calcManhattandistance(cross, [0, 0]));
+    distances.push(utils.calcManhattandistance([0, 0], cross));
   });
   console.log(Math.min.apply(null, distances));
 } catch (e) {
