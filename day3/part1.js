@@ -69,6 +69,11 @@ try {
   const wire2Points = calculatePoints(wirePlan[1]);
   const crossPoints = calculateCrosspoints(wire1Points, wire2Points);
   console.log(crossPoints);
+  const distances = [];
+  crossPoints.map((cross) => {
+    distances.push(utils.calcManhattandistance(cross, [0, 0]));
+  });
+  console.log(Math.min.apply(null, distances));
 } catch (e) {
   console.log('Error', e.stack);
 }
