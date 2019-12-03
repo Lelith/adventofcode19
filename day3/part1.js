@@ -43,7 +43,6 @@ function calculatePoints(wire) {
         break;
       default: return false;
     }
-    console.log(wirePoints.slice(-1));
   });
   return wirePoints;
 }
@@ -72,7 +71,7 @@ try {
   console.log(crossPoints);
   const distances = [];
   crossPoints.map((cross) => {
-    distances.push(utils.calcManhattandistance([0, 0], cross));
+    distances.push(utils.calcManhattandistance(cross, [0, 0]));
   });
   console.log(Math.min.apply(null, distances));
 } catch (e) {
