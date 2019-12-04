@@ -7,6 +7,7 @@ function convertData(data) {
 function calculatePoints(wire) {
   let x = 0;
   let y = 0;
+  const stepsTaken = 0;
   let newPoint;
   const wirePoints = [];
   wire.map((wirePath) => {
@@ -53,6 +54,7 @@ function calculateCrosspoints(wire, wire1Points) {
   let x = 0;
   let y = 0;
   let newPoint;
+  let stepsTaken = 0;
   wire.map((wirePath) => {
     const direction = wirePath.slice(0, 1);
     const steps = parseInt(wirePath.slice(1).trim(), 10);
@@ -62,8 +64,10 @@ function calculateCrosspoints(wire, wire1Points) {
         for (i; i > 0; i -= 1) {
           y += 1;
           newPoint = `${x},${y}`;
-          if (wire1Points.indexOf(newPoint) > 0) {
-            crossPoints.push([x, y]);
+          stepsTaken += 1;
+          const index = wire1Points.indexOf(newPoint);
+          if (index > 0) {
+            crossPoints.push([x, y, index + 1, stepsTaken]);
           }
         }
         break;
@@ -71,8 +75,10 @@ function calculateCrosspoints(wire, wire1Points) {
         for (i; i > 0; i -= 1) {
           y -= 1;
           newPoint = `${x},${y}`;
-          if (wire1Points.indexOf(newPoint) > 0) {
-            crossPoints.push([x, y]);
+          stepsTaken += 1;
+          const index = wire1Points.indexOf(newPoint);
+          if (index > 0) {
+            crossPoints.push([x, y, index + 1, stepsTaken]);
           }
         }
         break;
@@ -80,8 +86,10 @@ function calculateCrosspoints(wire, wire1Points) {
         for (i; i > 0; i -= 1) {
           x += 1;
           newPoint = `${x},${y}`;
-          if (wire1Points.indexOf(newPoint) > 0) {
-            crossPoints.push([x, y]);
+          stepsTaken += 1;
+          const index = wire1Points.indexOf(newPoint);
+          if (index > 0) {
+            crossPoints.push([x, y, index + 1, stepsTaken]);
           }
         }
         break;
@@ -89,8 +97,10 @@ function calculateCrosspoints(wire, wire1Points) {
         for (i; i > 0; i -= 1) {
           x -= 1;
           newPoint = `${x},${y}`;
-          if (wire1Points.indexOf(newPoint) > 0) {
-            crossPoints.push([x, y]);
+          stepsTaken += 1;
+          const index = wire1Points.indexOf(newPoint);
+          if (index > 0) {
+            crossPoints.push([x, y, index + 1, stepsTaken]);
           }
         }
         break;
@@ -100,6 +110,14 @@ function calculateCrosspoints(wire, wire1Points) {
   return crossPoints;
 }
 
+function getMinSteps(crossPoints) {
+  const sumSteps = [];
+  crossPoints.map((point) => {
+    sumSteps.push(point[2] + point[3]);
+  });
+  return Math.min.apply(null, sumSteps);
+}
+
 try {
   // const data = utils.readInput('./example.txt');
   const data = utils.readInput('./input.txt');
@@ -107,11 +125,7 @@ try {
   const wirePlan = convertData(data);
   const wire1Points = calculatePoints(wirePlan[0]);
   const crossPoints = calculateCrosspoints(wirePlan[1], wire1Points);
-  const distances = [];
-  crossPoints.map((cross) => {
-    distances.push(utils.calcManhattandistance(cross, [0, 0]));
-  });
-  console.log(Math.min.apply(null, distances));
+  console.log(getMinSteps(crossPoints));
 } catch (e) {
   console.log('Error', e.stack);
 }
