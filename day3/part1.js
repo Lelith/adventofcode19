@@ -49,20 +49,25 @@ function calculatePoints(wire) {
 
 function calculateCrosspoints(wire1Points, wire2Points) {
   const crossPoints = [];
+  let length = wire2Points.length;
   wire1Points.map((point1) => {
-    wire2Points.map((point2) => {
-      const crossingPoint = point1[0] === point2[0] && point1[1] === point2[1];
-      if (crossingPoint) {
+    let crossPoint = -1;
+    const pointA = JSON.stringify(point1)
+    let i = 0;
+    while (i < length -1 || crossPoint > 0 ) {
+      crossPoint = pointA === JSON.stringify(wire2Points[i]);
+      if(crossPoint>0){
         crossPoints.push(point1);
       }
-    });
+      i += 1;
+    }
   });
   return crossPoints;
 }
 
 try {
-  const data = utils.readInput('./example.txt');
-  // let data = utils.readInput('./input.txt');
+  // const data = utils.readInput('./example.txt');
+  let data = utils.readInput('./input.txt');
 
   const wirePlan = convertData(data);
   const wire1Points = calculatePoints(wirePlan[0]);
@@ -70,10 +75,10 @@ try {
   const crossPoints = calculateCrosspoints(wire1Points, wire2Points);
   console.log(crossPoints);
   const distances = [];
-  crossPoints.map((cross) => {
+/*  crossPoints.map((cross) => {
     distances.push(utils.calcManhattandistance(cross, [0, 0]));
-  });
-  console.log(Math.min.apply(null, distances));
+  });*/
+  //console.log(Math.min.apply(null, distances));
 } catch (e) {
   console.log('Error', e.stack);
 }
