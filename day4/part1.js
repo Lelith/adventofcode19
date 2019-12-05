@@ -1,28 +1,33 @@
 function splitToDigit(n) {
-  return (`${n}`).split('').map((i) => Number(i));
+  return (`${n}`).split('').map((i) => parseInt(i, 10));
 }
+
 try {
-  let password = 111;
-  const end = 150;
+  let password = 130254;
+  const end = 678275;
   let possible = 0;
 
-  while (password < end) {
+  while (password <= end) {
     const digits = splitToDigit(password);
     let hasDoubles = false;
     let i = 0;
-    while (digits[i] >= digits[i + 1] && i <= digits.length) {
-      console.log(i);
-      if (digits[i] === digits[i + 1]) {
+    let number = digits[i];
+    let next = digits[i + 1];
+
+    while (number <= next) {
+      if (number === next) {
         hasDoubles = true;
       }
       i += 1;
+      number = digits[i];
+      next = digits[i + 1];
     }
-    if (hasDoubles) {
+    if (hasDoubles && i === 5) {
       possible += 1;
     }
     password += 1;
   }
-  console.log(possible);
+  console.log(`possible: ${possible}`);
 } catch (e) {
   console.log('error');
 }
