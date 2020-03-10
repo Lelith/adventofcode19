@@ -13,10 +13,12 @@ try {
     let i = 0;
     let number = digits[i];
     let next = digits[i + 1];
+    let repeated = 0;
 
     while (number <= next) {
-      if (number === next) {
+      if (number === next && repeated < 3) {
         hasDoubles = true;
+        repeated += 1;
       }
       i += 1;
       number = digits[i];
