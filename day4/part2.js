@@ -3,7 +3,7 @@ function splitToDigit(n) {
 }
 
 function saveDoubles(hasDoubles, savedDoubles) {
-  return hasDoubles ? savedDoubles + 1 : savedDoubles;
+  return hasDoubles? savedDoubles + 1 : savedDoubles;
 }
 try {
   let password = 130254;
@@ -21,7 +21,7 @@ try {
     while (before <= number) {
       if (before < number) {
         doublesCounter = 0;
-        savedDoubles = saveDoubles(hasDoubles, savedDoubles);
+        savedDoubles = saveDoubles(hasDoubles, savedDoubles)
       }
       if (before === number) {
         if (doublesCounter < 1) {
@@ -35,7 +35,7 @@ try {
       before = number;
       number = digits[i];
     }
-    savedDoubles = saveDoubles(hasDoubles, savedDoubles);
+    savedDoubles = hasDoubles? savedDoubles+1 : savedDoubles;
     if (savedDoubles > 0 && i === 6) {
       possible += 1;
     }
