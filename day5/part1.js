@@ -20,16 +20,15 @@ function gravityAssistant(memory) {
       const valA = instructions[2] === 1 ? memory[pointer + 1] : memory[memory[pointer + 1]];
       const valB = instructions[1] === 1 ? memory[pointer + 2] : memory[memory[pointer + 2]];
       if (opCode === 1) {
-      //  console.log(`code 1 addign ${valA} and ${valB}`);
-        const result = valA + valB;
-        memory[memory[pointer + 3]] = result;
+        // console.log(`code 1 addign ${valA} and ${valB}`);
+        memory[memory[pointer + 3]] = valA + valB;
       } else {
         // console.log(`code 2 addign ${valA} and ${valB}`);
         memory[memory[pointer + 3]] = valA * valB;
       }
     } else if (opCode === 3) {
       const input = prompt('input required:');
-      memory[memory[pointer + 1]] = input;
+      memory[memory[pointer + 1]] = parseInt(input, 10);
     } else if (opCode === 4) {
       const valA = instructions[2] === 1 ? memory[pointer + 1] : memory[memory[pointer + 1]];
       console.log('Code 4, printing value: ');
@@ -41,6 +40,9 @@ function gravityAssistant(memory) {
     if (pointer < memory.length) {
       instructions = prepareOpcode(memory[pointer]).map(Number);
       opCode = parseInt(instructions[3].toString() + instructions[4].toString(), 10);
+      if (opCode === 99) {
+        console.log('stop command received');
+      }
     }
   }
 }
@@ -51,7 +53,6 @@ try {
   let memory = utils.readInput('./input.txt');
   memory = utils.modDataCommas(memory);
   gravityAssistant(memory);
-  console.log(memory[0]);
 } catch (e) {
   console.error('Error', e.stack);
 }
