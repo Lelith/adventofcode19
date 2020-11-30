@@ -1,47 +1,31 @@
 const utils = require('../utils');
 
 function prepareOpcode(instruction) {
-  const codes = instruction.split();
-  console.log(codes);
+  // opp codes need to have length of 5, leading zeros are not given printed, so we fill them in.
+  const codes = instruction.toString().split('').toInt();
+  while (codes.length < 5) {
+    codes.unshift(0);
+  }
+  return codes;
 }
 
-function gravityAssistant(data) {
+function gravityAssistant(memory) {
+  let oppCode = memory[0];
   let i = 0;
-  let a = 0;
-  let b = 0;
   let pointer = 0;
-  let value = 0;
-  let operator = prepareOpcode(data[0]);
-
-/*  while (operator !== 99 && i < (data.length - 1)) {
-    a = data[i + 1];
-    b = data[i + 2];
-    pointer = data[i + 3];
-    switch (operator) {
-      case 1:
-        data[pointer] = data[a] + data[b];
-        break;
-      case 2:
-        data[pointer] = data[a] * data[b];
-        break;
-      case 3:
-        break;
-      case 4:
-        break;
-      default: return false;
-    }
-    i += 4;
-    operator = data[i];
-  } */
-  return data;
+  while(opcode !== 99 || i<10) {
+    console.log(opcode);
+  }
 }
+
 
 try {
   let memory = utils.readInput('./example.txt');
   // let memory = utils.readInput('./input.txt');
   memory = utils.modDataCommas(memory);
-  const result = gravityAssistant(memory);
-  console.log(result);
+  const oppcode = prepareOpcode(1002);
+  console.log(memory);
+  console.log(oppcode);
 } catch (e) {
-  console.log('Error', e.stack);
+  console.error('Error', e.stack);
 }
