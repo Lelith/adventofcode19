@@ -25,10 +25,10 @@ function gravityAssistant(memory) {
       const valA = getValue(instructions[2], 1, pointer, memory);
       const valB = getValue(instructions[1], 2, pointer, memory);
       if (opCode === 1) {
-        console.log(`code 1 addign ${valA} and ${valB}`);
+        // console.log(`code 1 adding ${valA} and ${valB}`);
         memory[writingTarget(memory, pointer)] = valA + valB;
       } else {
-        console.log(`code 2 addign ${valA} and ${valB}`);
+        // console.log(`code 2 multiply ${valA} and ${valB}`);
         memory[writingTarget(memory, pointer)] = valA * valB;
       }
       pointer += 4;
@@ -41,11 +41,42 @@ function gravityAssistant(memory) {
       console.log('Code 4, printing value: ');
       console.log(outputVal);
       pointer += 2;
+    } else if (opCode === 5) {
+      const valA = getValue(instructions[2], 1, pointer, memory);
+      // console.log('Code 5 with value: ', valA);
+      if (valA !== 0) {
+        // console.log('setting pointer');
+        pointer = getValue(instructions[1], 2, pointer, memory);
+      } else {
+        pointer += 3;
+      }
+    } else if (opCode === 6) {
+      const valA = getValue(instructions[2], 1, pointer, memory);
+      // console.log('Code 6 with value: ', valA);
+      if (valA === 0) {
+        // console.log('setting pointer');
+        pointer = getValue(instructions[1], 2, pointer, memory);
+      } else {
+        pointer += 3;
+      }
+    } else if (opCode === 7 || opCode === 8) {
+      const valA = getValue(instructions[2], 1, pointer, memory);
+      const valB = getValue(instructions[1], 2, pointer, memory);
+      if (opCode === 7) {
+        if (valA < valB) {
+          memory[writingTarget(memory, pointer)] = 1;
+        } else {
+          memory[writingTarget(memory, pointer)] = 0;
+        }
+      } else if (opCode === 8) {
+        if (valA === valB) {
+          memory[writingTarget(memory, pointer)] = 1;
+        } else {
+          memory[writingTarget(memory, pointer)] = 0;
+        }
+      }
+      pointer += 4;
     }
-    // else if (opCode === 5) {
-    //   const valA = getValue(instructions[2], 1, pointer, memory);
-    //   if(valA)
-    // }
     // console.log(memory);
     // to move to next operation increase pointer position
     // pointer = opCode < 3 ? pointer + 4 : pointer + 2;
